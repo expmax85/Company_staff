@@ -23,3 +23,8 @@ API содержит следующие ресурсы
 ```
 docker compose --env-file .env up -d
 ```
+
+## Создание суперпользователя
+```
+docker exec -ti app sh -c "python corp_staff/manage.py createsuperuser --no-input"
+```

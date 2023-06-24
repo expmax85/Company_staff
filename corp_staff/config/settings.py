@@ -16,6 +16,7 @@ import environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
 env = environ.Env()
 environ.Env.read_env(os.path.join(BASE_DIR.parent, '.env'))
 
@@ -23,16 +24,15 @@ environ.Env.read_env(os.path.join(BASE_DIR.parent, '.env'))
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env('SECRET_KEY')#os.getenv('SECRET_KEY', 'django-insecure-7vm4soelj=(w*va8yg36rc_g(h7z673ux-dtkd1u_^q2k$hzi1')
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env('DEBUG')#os.getenv('DEBUG', '0') == '0'
+DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')#os.getenv('ALLOWED_HOSTS', '127.0.0.1,').split(',')
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
 
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -82,26 +82,9 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }"DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.IsAuthenticated"],
-
 DATABASES = {
-    'default': env.db(),#{
-        # 'ENGINE': os.getenv('DB_ENGINE', 'django.db.backends.sqlite3'),
-        # 'NAME': os.getenv('DB_NAME', BASE_DIR / 'db.sqlite'),
-        # 'USER': os.getenv('DB_USER', ''),
-        # 'PASSWORD': os.getenv('DB_PASSWORD', ''),
-        # 'HOST': os.getenv('DB_HOST', ''),
-        # 'PORT': os.getenv('DB_PORT', ''),
-    # },
-    'extra': env.db_url(
-        'SQLITE_URL',
-        default='sqlite:////db.sqlite'
-    )
+    'default': env.db(),
+    'extra': env.db_url('SQLITE_URL', default='sqlite:////db.sqlite')
 }
 
 
@@ -173,4 +156,3 @@ SPECTACULAR_SETTINGS = {
 DJANGO_SUPERUSER_USERNAME = env('DJANGO_SUPERUSER_USERNAME')
 DJANGO_SUPERUSER_PASSWORD = env('DJANGO_SUPERUSER_PASSWORD')
 DJANGO_SUPERUSER_EMAIL = env('DJANGO_SUPERUSER_EMAIL')
-
