@@ -17,7 +17,7 @@ services:
     volumes:
       - .:/code
     ports:
-      - "${APP_PORT}:8000"
+      - "8000:8000"
     depends_on:
       db:
           condition: service_healthy
@@ -30,7 +30,7 @@ services:
     expose:
       - 5432
     ports:
-      - "${DB_PORT}:5432"
+      - "5432:5432"
     volumes:
       - ./data/db:/var/lib/postgresql/data
       - ./init-database.sh:/docker-entrypoint-initdb.d/init-database.sh
